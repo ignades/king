@@ -1,0 +1,26 @@
+ 
+.navbar-brand {
+    position: absolute!important;
+    top: -9px!important;
+    left: 10px!important;
+}
+
+.home_login {
+ z-index:999999;
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #38c172;
+    border-color: #38c172;
+}
+
+.btn-outline-secondary-register {
+    color: #1585e8;
+    border-color: #3c90da;
+}
+
+.btn-outline-secondary-accedi {
+    background-color: #49d440;
+    border-color: #38c172;
+}

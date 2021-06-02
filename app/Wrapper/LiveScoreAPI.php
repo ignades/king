@@ -4,13 +4,13 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use App\Exceptions\WrongAPICredentialsException;
 use App\Exceptions\WrapException;
-
+ 
 /**
  * Class LiveScoreAPI
  *
  * @package Stomas\Livescoreapi\Wrapper
  */
-class LiveScoreAPI
+class LiveScoreAPI 
     {
 
     /**
@@ -83,7 +83,7 @@ class LiveScoreAPI
      */
     private function wrapMatches ($arrayResponse)
     {
-
+        $datos='';
         $matches = [];
         foreach ($arrayResponse as $arrayMatch) {
             array_push ($matches, new Match($arrayMatch));
