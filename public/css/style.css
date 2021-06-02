@@ -24,3 +24,13 @@
     background-color: #49d440;
     border-color: #38c172;
 }
+
+.bg-light {
+    background: rgb(180,116,1);
+    background: linear-gradient(0deg, rgba(198,116,1,1) 0%, rgba(255,215,6,1) 35%, rgba(255,235,0,1) 100%);
+}
+
+#footer_style{
+    background: rgb(198,116,1);
+background: linear-gradient(0deg, rgba(198,116,1,1) 0%, rgba(246,197,15,1) 16%, rgba(255,215,6,1) 38%, rgba(255,235,0,1) 73%, rgba(255,255,255,1) 100%);
+}

@@ -22,7 +22,7 @@
 </head>
 <body>
     <div id="app">
-    <div class="header bg-light py-2">
+    <div class="header bg-light py-1">
     <div class="container">
         <div class="row">
             <div class="col-6">
@@ -149,5 +149,9 @@
             @yield('content')
         </main>
     </div>
+    <!-- FOOTER -->
+    <footer>
+    @include('includes.footer')
+    </footer>
 </body>
 </html>
