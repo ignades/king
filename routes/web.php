@@ -28,7 +28,7 @@ Route::get('/test', function () {
 //Route::get('/apitest', [ApiController::class, 'show']);
  
 Route::get('lighe', [HomeController::class, 'index'])->name('home');
-Route::get('lighe/{id}', [LivescoreController::class, 'mostra_lighe']);
+Route::get('lighe/{id}', [LivescoreController::class, 'mostra_competizioni']);
 
 Route::get('mostra_score', [LivescoreController::class, 'mostra_score']);
 Route::get('mostra_all_scores', [LivescoreController::class, 'mostra_all_scores']);
@@ -39,9 +39,13 @@ Route::get('mostra_scores_competitions', [LivescoreController::class, 'mostra_sc
 Route::post('mostra_scores_competitions', [LivescoreController::class, 'mostra_scores_competitions']);
 
 
+//Fixtures show_fixtures
+Route::get('mostra_fixtures', [LivescoreController::class, 'mostra_fixtures']);
+Route::post('mostra_fixtures', [LivescoreController::class, 'mostra_fixtures']);
 
 
-
+//save
+Route::get('save_fixtures', [LivescoreController::class, 'save_fixtures']);
 Route::get('salva_lista_lighe', [LivescoreController::class, 'salva_lista_lighe']);
 Route::get('save_league_country', [LivescoreController::class, 'save_league_country']);
 

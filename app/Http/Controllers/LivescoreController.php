@@ -12,6 +12,7 @@ use App\Models\LigheCountrys;
 use App\Models\Competitions;
 use App\Models\Scores;
 use App\Models\AllScores;
+use App\Models\Fixtures;
 use DB;
 
 class LivescoreController extends Controller
@@ -159,8 +160,94 @@ class LivescoreController extends Controller
 
         $countries = json_decode($jsonString, true);
       
-
         return view('home')->with('lighe',$lighe)->with('countries',$countries);
+    }
+
+
+    //Competizioni per country
+    public function mostra_competizioni(Competitions $competitions,$id){
+         
+        $competitions = new Competitions;
+        $competitions = $competitions->where('countries_id',$id)->get();       
+
+        $jsonString = file_get_contents(base_path('resources/countries/countries.json'));
+
+        $countries = json_decode($jsonString, true);
+      
+        return view('home')->with('lighe',$competitions)->with('countries',$countries);
+    }
+
+    //Salva fixtures
+    public function save_fixtures(Fixtures $fixtures){
+        $fixtures = Fixtures::all();
+        $fixtures_count = $fixtures->count();
+        if($fixtures_count==0){
+            //salva nuovi dati
+            echo "Salva nel db";
+           
+            $this->apiKey = Config::get('livescore.api_key');
+            $this->apiSecret = Config::get('livescore.api_secret');
+    
+            $client = new Client(); //GuzzleHttp\Client
+            //$url = "http://livescore-api.com/api-client/scores/live.json?key=" . $this->apiKey . "&secret=" . $this->apiSecret;
+            $url = "https://livescore-api.com/api-client/fixtures/matches.json?&key=" . $this->apiKey . "&secret=" . $this->apiSecret;
+    
+    
+            $response = $client->request('GET', $url, [
+                'verify'  => false,
+            ]);
+    
+            $responseBody = json_decode($response->getBody());
+            $fixtures = array();
+            $data = (object) $responseBody;
+             foreach($data->data->fixtures  as  $k=>$value){
+                $fixtures[$k]["time"]=$value->time;
+                $fixtures[$k]["league_id"]=$value->league_id;
+                $fixtures[$k]["h2h"]=$value->h2h;
+                $fixtures[$k]["home_name"]=$value->home_name;
+                $fixtures[$k]["home_translations_fa"]=!empty($value->home_translations->fa) ? $value->home_translations->fa : null;
+                $fixtures[$k]["home_translations_ar"]=!empty($value->home_translations->ar) ? $value->home_translations->ar : null;
+                $fixtures[$k]["home_translations_ru"]=!empty($value->home_translations->ru) ? $value->home_translations->ru : null;
+                $fixtures[$k]["location"]=$value->location;
+                $fixtures[$k]["odds_live_vX"]=!empty($value->odds->live->X) ? $value->odds->live->X : null;
+                $fixtures[$k]["odds_live_v1"]= !empty($value->odds->live->{1}) ? $value->odds->live->{1} : null;
+                $fixtures[$k]["odds_live_v2"]= !empty($value->odds->live->{2}) ? $value->odds->live->{2} : null;
+                $fixtures[$k]["odds_pre_vX"]=!empty($value->odds->pre->X) ? $value->odds->pre->X : null;
+                $fixtures[$k]["odds_pre_v1"]=!empty($value->odds->pre->{1}) ? $value->odds->pre->{1} : null;
+                $fixtures[$k]["odds_pre_v2"]=!empty($value->odds->pre->{2}) ? $value->odds->pre->{2} : null;
+                $fixtures[$k]["round"]= $value->round;
+                $fixtures[$k]["away_translations_fa"]=!empty($value->away_translations->fa) ? $value->away_translations->fa : null;
+                $fixtures[$k]["away_translations_ar"]=!empty($value->away_translations->ar) ? $value->away_translations->ar : null;
+                $fixtures[$k]["away_translations_ru"]=!empty($value->away_translations->ru) ? $value->away_translations->ru : null;
+                $fixtures[$k]["away_id"]=$value->away_id;
+                $fixtures[$k]["competition_id"]=$value->competition_id;
+                $fixtures[$k]["home_id"]=$value->home_id;
+                $fixtures[$k]["league_name"]= !empty($value->league->name) ? $value->league->name : null;
+                $fixtures[$k]["league_id_id"]=!empty($value->league->id) ? $value->league->id : null;
+                $fixtures[$k]["league_country_id"]=!empty($value->league->country_id) ? $value->league->country_id : null;
+                $fixtures[$k]["date"]=$value->date;
+                $fixtures[$k]["fixture_id"]=$value->id;
+                $fixtures[$k]["competition_name"]=!empty($value->competition->name) ? $value->competition->name : null;
+                $fixtures[$k]["id_competition"]=!empty($value->competition->id) ? $value->competition->id : null;
+                $fixtures[$k]["created_at"] = now();
+                $fixtures[$k]["updated_at"] = now();
+ 
+             }
+
+            DB::table('fixtures')->insert( $fixtures );
+            die;
+                
+
+        }else{
+            echo "Fai query";
+        }
+
+    }
+    //Mostra fixtures per id_competizione
+    public function mostra_fixtures(Request $request){
+      //https://livescore-api.com/api-client/fixtures/matches.json?competition_id=13&key=BfLZqsTh3oC7tqJY&secret=iXtnAfZmPo8hzjYazKaZd3ghrSpVj8UB
+       echo $id_competition = $request->id_competition;
+    
     }
 
     /**
@@ -367,7 +454,7 @@ class LivescoreController extends Controller
                 $competitions[$k]["has_groups"]  = $value->has_groups;
                 $competitions[$k]["active"]  = $value->active;
                 $competitions[$k]["national_teams_only"] = $value->national_teams_only;
-                $competitions[$k]["countries_id"] = $value->id;
+                $competitions[$k]["countries_id"] =  !empty($value->countries{0}->id) ? $value->countries{0}->id : null;
                 $competitions[$k]["countries_name"] = !empty($value->countries{0}->name) ? $value->countries{0}->name : null;
                 $competitions[$k]["countries_flag"] = !empty($value->countries{0}->flag) ? $value->countries{0}->flag : null;
                 $competitions[$k]["countries_fifa_code"] = !empty($value->countries{0}->fifa_code) ? $value->countries{0}->fifa_code : null; 
@@ -389,6 +476,11 @@ class LivescoreController extends Controller
     
     
 
+    }
+
+    public function show_competitions(Request $request){
+        $competition_name = $request->competition_name;
+        $competition = Competitions::where('name','=',$competition_name);
     }
 
 

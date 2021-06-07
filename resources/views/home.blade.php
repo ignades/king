@@ -27,17 +27,17 @@
   @if(isset($lighe))
     <div class="container">
         <div class="row">
+        <div class="mt-2 mb-2"><h2>{{$lighe[0]->countries_name}}</h2></div>
     @foreach($lighe as $k=>$v )
-    <div  class="col-12 p-3 text-primary serie">
+    <div  class="col-12 p-3 text-primary serie mb-2">
     {{ $v->name }}
    
      </div>
-    <form  id="scores"  action="{{ URL::asset('/mostra_scores_competitions') }}">
-     <input type="text" name="nome_competizione" value="{{ $v->name }}">
-      {{-- <input type="hidden" name="nome_competizione" value="{{ htmlspecialchars_decode($v->name, ENT_NOQUOTES) }}"> --}}
-     
+    <form  id="scores"  action="{{ URL::asset('mostra_fixtures') }}">
+     <input type="hidden" name="id_competition" value="{{ $v->id_competition }}">
     </form> 
-    {{ htmlspecialchars_decode($v->scores, ENT_NOQUOTES) }}
+    {{ htmlspecialchars_decode($v->id_competition, ENT_NOQUOTES) }}
+   
     @endforeach
         </div>
     </div>
