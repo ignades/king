@@ -175,7 +175,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         //Stomas\Livescoreapi\LivescoreAPIServiceProvider::class,
-        App\Providers\LivescoreAPIServiceProvider::class,
+        //App\Providers\LivescoreAPIServiceProvider::class,
        
     ],
 

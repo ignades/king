@@ -1,128 +1,57 @@
 @extends('layouts.app')
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
-
-                    <?php
-// if(isset($partite)){
-//     dd($partite);
-// }else{
-//     echo "non ce";
-// }sudo n latest
-?>
-
-
-<table class="table table-striped table-hover">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
-
-
-
-
-<table class="table table-striped table-hover">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
-            
-
-
-<table class="table table-striped table-hover">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
-                        
-                </div>
-            </div>
+@section('lighe')
+ 
+  <div class="container">
+        <div class="row">
+        <h3>Lighe</h3>
+          <div class="col-12">
+            @php 
+            $array1 = array("AR"=>"Argentina","AT"=>"Austria","AU"=>"Australia","BE"=>"Belgium","BR"=>"Brazil","DE"=>"Germany","DK"=>"Denmark","EN"=>"England","FI"=>"Finland","FR"=>"France","IT"=>"Italy","JP"=>"Japan","NO"=>"Norway","PL"=>"Poland","PT"=>"Portugal","RU"=>"Russia","SC"=>"Scotland","SE"=>"Sweden","TR"=>"Turkey"); 
+            // Convert JSON string to Array
+            $array2 = $countries;
+            @endphp
+            @foreach ($array1 as $k => $value) 
+                @foreach ($array2["data"]["country"] as $key => $v2)                 		 
+                    @if(is_array($v2)==true)
+                        @if($value== $v2["name"])
+                          <a href="{{ URL::asset('lighe/'.$v2["id"].'') }}"><img width=30 src="/images/bandierine/{{strtolower($k)}}.png" alt=""></a>                     
+                        @endif                        
+                    @endif                
+                @endforeach
+            @endforeach
+          </div>
         </div>
     </div>
-</div>
+
+  @if(isset($lighe))
+    <div class="container">
+        <div class="row">
+    @foreach($lighe as $k=>$v )
+    <div  class="col-12 p-3 text-primary serie">
+    {{ $v->name }}
+   
+     </div>
+    <form  id="scores"  action="{{ URL::asset('/mostra_scores_competitions') }}">
+     <input type="text" name="nome_competizione" value="{{ $v->name }}">
+      {{-- <input type="hidden" name="nome_competizione" value="{{ htmlspecialchars_decode($v->name, ENT_NOQUOTES) }}"> --}}
+     
+    </form> 
+    {{ htmlspecialchars_decode($v->scores, ENT_NOQUOTES) }}
+    @endforeach
+        </div>
+    </div>
+  @endif
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+$( document ).ready(function() {
+  $( ".serie" ).click(function() {
+    alert("ok");
+    $( "#scores" ).submit();
+  });
+});
+</script>
+
 @endsection
+
+ 

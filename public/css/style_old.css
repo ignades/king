@@ -1,0 +1,41 @@
+ 
+.navbar-brand {
+    position: absolute!important;
+    top: -9px!important;
+    left: 10px!important;
+}
+
+.home_login {
+ z-index:999999;
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #38c172;
+    border-color: #38c172;
+}
+
+.btn-outline-secondary-register {
+    color: #1585e8;
+    border-color: #3c90da;
+}
+
+.btn-outline-secondary-accedi {
+    background-color: #49d440;
+    border-color: #38c172;
+}
+
+.bg-light {
+    background-image: -webkit-linear-gradient(top,#848484 0%,#424242 100%);
+    background-image: -o-linear-gradient(top,#848484 0%,#424242 100%);
+    background-image: linear-gradient(to bottom,#848484 0%,#424242 100%);
+    background-repeat: repeat-x;
+    height: 80px;
+}
+
+#footer_style{
+    background: rgb(198,116,1);
+background: linear-gradient(0deg, rgba(198,116,1,1) 0%, rgba(246,197,15,1) 16%, rgba(255,215,6,1) 38%, rgba(255,235,0,1) 73%, rgba(255,255,255,1) 100%);
+}
+
+ 
