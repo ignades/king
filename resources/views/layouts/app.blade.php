@@ -112,19 +112,19 @@
                 <div class="collapse navbar-collapse" id="nextpage_main_menu">
                     <ul class="navbar-nav menu-open">
                         <li class="current-menu-item">
-                            <a href="#banner">Home</a>
+                            <a href="{{ URL::asset('home') }}">Home</a>
                         </li>                        
                         <li class="current-menu-item">
-                            <a href="">Lighe</a>
+                            <a href="{{ URL::asset('lighe') }}">Lighe</a>
                         </li>                        
                         <li class="current-menu-item">
-                            <a href="#latest">Latest News</a>
+                            <a href="{{ URL::asset('mostra_all_scores') }}">Live Scores</a>
                         </li>                        
                         <li class="current-menu-item">
-                            <a href="#grid">News Grid</a>
+                            <a href="#grid">News</a>
                         </li>                        
                         <li class="current-menu-item">
-                            <a target="_blank" href="https://1.envato.market/5OQX2">Pro Version</a>
+                            <a target="_blank" href="https://1.envato.market/5OQX2">Il nostro Software</a>
                         </li>
                     </ul>
                 </div>

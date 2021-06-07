@@ -24,26 +24,36 @@ echo '<div class="container">
           </div>
           
               <div class="bd-example m-2">
-                <table class="table  table-hover">
+                <table id="all_scores" class="table  table-hover">
                   <thead>
                     <tr>
-                       <th>Location</th>
-                      <th scope="col">#</th>
-                      <th scope="col">Away Name</th>
-                      <th scope="col">Home Name</th>
-                      <th scope="col">ht_score</th>
+                      <th class="colonna1" scope="col-sm">#</th>
+                      <th class="colonna2">Location</th>                      
+                      <th scope="col-sm">Away Name</th>
+                      <th scope="col-sm">Home Name</th>
+                      <th scope="col-sm">ht_score</th>
+                      <th scope="col-sm">status</th>
                     </tr>
                 </thead>
                
                 @foreach($scores as $k=>$v)
                  <tbody>
                   <tr>                 
-                    <th scope="row">{{$k}}</th>
-                    <th>{{$v->location}}</th>
+                    <th class="colonna1" scope="row">{{$k}}</th>
+                    <th class="colonna1">{{$v->location}}</th>
                     <td>{{$v->away_name}}</td>
                     <td>{{$v->home_name}}</td>
                     <td>{{$v->ht_score}}</td>
+                    <td>{{$v->status}}</td>
                   </tr>
+                  {{-- <tr>                 
+                    <th>altro </th>                   
+                    <th >altro</th>
+                    <td>altro</td>
+                    <td>altro</td>
+                    <td>altro</td>
+                    <td>altro</td>
+                  </tr> --}}
                   </tbody>
                 @endforeach
 
@@ -128,13 +138,21 @@ echo '<div class="container">
     @endsection
 
 
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script>
 $( document ).ready(function() {
-  //  alert( "ready!" );
+  var w =  $( window ).width();
+  console.log(w);
+  if(w < 360){
+    $('.colonna1').hide();
+    $('.colonna2').hide();
+  }else{
+    $('.colonna1').show();
+    $('.colonna2').show();
+  }
 });
 </script>
-
 @endsection
 
  
