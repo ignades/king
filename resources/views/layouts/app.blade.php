@@ -284,6 +284,7 @@
     <!-- navbar end -->
     <!-- Lighe -->
     @yield('lighe')
+    @yield('test')
     @yield('content');
     <!-- FOOTER -->
     <footer>

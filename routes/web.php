@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LivescoreController;
 use App\Http\Controllers\testController;
+use App\Http\Controllers\Test2Controller;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,9 +17,8 @@ use App\Http\Controllers\testController;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+;
+Route::get('/', [LivescoreController::class, 'index']);
 
 Route::get('/test', function () {
     return view('test');
@@ -26,7 +26,7 @@ Route::get('/test', function () {
 
 //ApiController
 //Route::get('/apitest', [ApiController::class, 'show']);
- 
+Route::get('nuova', [Test2Controller::class, 'mia']); 
 Route::get('lighe', [HomeController::class, 'index'])->name('home');
 Route::get('lighe/{id}', [LivescoreController::class, 'mostra_competizioni']);
 
@@ -70,6 +70,7 @@ Route::get('/test', [testController::class, 'test']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
+
 
  
  

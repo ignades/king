@@ -46,7 +46,6 @@
 <script>
 $( document ).ready(function() {
   $( ".serie" ).click(function() {
-    alert("ok");
     $( "#scores" ).submit();
   });
 });

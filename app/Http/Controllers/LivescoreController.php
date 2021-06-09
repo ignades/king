@@ -26,7 +26,14 @@ class LivescoreController extends Controller
      */
     public function index()
     {
-        //
+        $lighe = new LigheCountrys;
+        $lighe = $lighe->all();       
+
+        $jsonString = file_get_contents(base_path('resources/countries/countries.json'));
+
+        $countries = json_decode($jsonString, true);
+      
+        return view('home')->with('lighe',$lighe)->with('countries',$countries);
     }
 
     /**
@@ -179,9 +186,10 @@ class LivescoreController extends Controller
 
     //Salva fixtures
     public function save_fixtures(Fixtures $fixtures){
-        $fixtures = Fixtures::all();
+        $data = now();
+        $fixtures = Fixtures::where('created_at'=$data);
         $fixtures_count = $fixtures->count();
-        if($fixtures_count==0){
+        if($fixtures_count==0 ){
             //salva nuovi dati
             echo "Salva nel db";
            
@@ -246,7 +254,9 @@ class LivescoreController extends Controller
     //Mostra fixtures per id_competizione
     public function mostra_fixtures(Request $request){
       //https://livescore-api.com/api-client/fixtures/matches.json?competition_id=13&key=BfLZqsTh3oC7tqJY&secret=iXtnAfZmPo8hzjYazKaZd3ghrSpVj8UB
-       echo $id_competition = $request->id_competition;
+       $id_competition = $request->id_competition;
+       $fixtures = Fixtures::where('competition_id','=',$id_competition)->get();
+       dd($fixtures);
     
     }
 
